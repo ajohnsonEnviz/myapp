@@ -1,10 +1,11 @@
 
 import {withAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react';
-import Amplify from 'aws-amplify';
+import {Amplify,API} from 'aws-amplify';
+import * as mutations from './graphql/mutations';
 import Grid from '@mui/material/Grid';
 import awsExports from './aws-exports';
 import MaterialTable from "material-table";
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
@@ -61,6 +62,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import * as queries from './graphql/queries';
 
 Amplify.configure(awsExports);
 
@@ -178,6 +180,25 @@ function App() {
     setValue(newValue);
   };
 
+  async function createPItem(){
+  
+    const todoDetails = {
+      resource: 'Zerya Betül'
+    };
+    const newTodo = await API.graphql({ query: mutations.createPersonnelList, variables: {input: todoDetails}});
+
+
+  }
+  async function getPList(){
+    const allPItems = await API.graphql({ query: queries.getPersonnelList });
+console.log(allPItems); // result: { "data": { "listTodos": { "items": [/* ..... */] } } }
+
+  }
+
+  useEffect(()=>{
+    getPList();
+  });
+  
 
   return (
     <div className="App">
@@ -276,8 +297,9 @@ function App() {
             onRowAdd: newData =>
               new Promise((resolve, reject) => {
                 setTimeout(() => {
-                  setData([...data, newData]);
                   
+                  setData([...data, newData]);
+                  createPItem();
                   resolve();
                 }, 1000)
               }),

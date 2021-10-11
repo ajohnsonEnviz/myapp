@@ -1,6 +1,12 @@
-type Todo @model {
+type personnelList @model @auth(rules: [{allow: private}]) {
   id: ID!
-  name: String!
-  description: String
-  text: String
+  resource: String!
+  callOrder: String
+  lcat: String
+  rate: String
+  campin: String
+  approved: String
+  transfer: String
+  exitDate: String
 }
+ 

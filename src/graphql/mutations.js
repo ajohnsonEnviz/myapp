@@ -1,46 +1,61 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createPersonnelList = /* GraphQL */ `
+  mutation CreatePersonnelList(
+    $input: CreatePersonnelListInput!
+    $condition: ModelpersonnelListConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createPersonnelList(input: $input, condition: $condition) {
       id
-      name
-      description
-      text
+      resource
+      callOrder
+      lcat
+      rate
+      campin
+      approved
+      transfer
+      exitDate
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updatePersonnelList = /* GraphQL */ `
+  mutation UpdatePersonnelList(
+    $input: UpdatePersonnelListInput!
+    $condition: ModelpersonnelListConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updatePersonnelList(input: $input, condition: $condition) {
       id
-      name
-      description
-      text
+      resource
+      callOrder
+      lcat
+      rate
+      campin
+      approved
+      transfer
+      exitDate
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deletePersonnelList = /* GraphQL */ `
+  mutation DeletePersonnelList(
+    $input: DeletePersonnelListInput!
+    $condition: ModelpersonnelListConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deletePersonnelList(input: $input, condition: $condition) {
       id
-      name
-      description
-      text
+      resource
+      callOrder
+      lcat
+      rate
+      campin
+      approved
+      transfer
+      exitDate
       createdAt
       updatedAt
     }
