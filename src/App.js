@@ -28,14 +28,17 @@ import moment from 'moment';
 import DateFnsUtils from "@date-io/date-fns";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
-
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import IconButton from '@mui/material/IconButton';
+import DescriptionIcon from '@mui/icons-material/Description';
 import {
   MuiPickersUtilsProvider,
   TimePicker,
@@ -53,6 +56,11 @@ import ContentCopy from '@mui/icons-material/ContentCopy';
 import ContentPaste from '@mui/icons-material/ContentPaste';
 import Cloud from '@mui/icons-material/Cloud';
 import Divider from '@mui/material/Divider';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
 Amplify.configure(awsExports);
 
@@ -76,17 +84,60 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 function App() {
   const [selectedRow, setSelectedRow] = useState(null);
  
 
   const [columns, setColumns] = useState([
-    { title: 'Order #', field: 'name',
+    { title: 'Resource', field: 'resource',
     cellStyle: {
       fontWeight: 'bold'
     }, },
-    { title: 'Call Order', field: 'surname', initialEditValue: 'initial edit value' },
-    { title: 'Date', field: 'birthYear', type: 'date', 
+    { title: 'Call Order', field: 'callOrder',lookup: { 1: 'All', 2: '001' }},
+    
+    {
+      title: 'LCAT',
+      field: 'lcat',
+      lookup: { 34: 'Mid MS SQL Server Database Expert', 63: 'Cloud Engineer Sr/Senior Cloud Engineer' },
+    },
+    { title: 'Rate', field: 'rate', type:'currency'},
+    { title: 'CAMPIN', field: 'campin'},
+    { title: 'Approved', field: 'approved', type:'boolean'},
+    { title: 'Transfer', field: 'transfer', type:'boolean'},
+    { title: 'Exit Date', field: 'exitDate', type: 'date', 
     editComponent: props => (
       <MuiPickersUtilsProvider utils={DateFnsUtils} 
                   locale={props.dateTimePickerLocalization}>
@@ -105,16 +156,27 @@ function App() {
        )
   },
     {
-      title: 'Type',
-      field: 'birthCity',
-      lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+      title: 'Notes',
+      field: 'notes',
+     
     },
   ]);
 
   const [data, setData] = useState([
-    { name: 'Mehmet', surname: 'Baran', birthYear: '1/2/2017', birthCity: 63 },
-    { name: 'Zerya Betül', surname: 'Baran', birthYear: '1/2/2017', birthCity: 34 },
+    { resource: 'Mehmet', callOrder: 1, lcat:34, approved:true, exitDate: '1/2/2017', birthCity: 63 },
+    { resource: 'Zerya Betül', callOrder: 2, lcat:63, approved:false, exitDate: '1/2/2017', birthCity: 34 },
   ]);
+  const [project, setProject] = useState(10);
+
+  const handleChange = (event) => {
+    setProject(event.target.value);
+  };
+  
+  const [value, setValue] = useState(0);
+
+  const handleChange1 = (event, newValue) => {
+    setValue(newValue);
+  };
 
 
   return (
@@ -144,53 +206,25 @@ function App() {
       </AppBar>
     </Box>
      
-      <Grid container spacing >
-        <Grid item xs={2}  style={{paddingTop:'20px',paddingLeft:'20px'}}>
-          <div style={{height:'120px'}} />
-          <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <nav aria-label="main mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Inbox" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Drafts" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-      <Divider />
-      <nav aria-label="secondary mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="Trash" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemText primary="Spam" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-    </Box>
-        </Grid>
-        <Grid item xs={10}>
+      <Grid container spacing={2} >
+       
+        <Grid item xs={12} style={{paddingLeft: '20px'}}>
       
 
       <Grid container spacing={2} style={{paddingTop:'20px',paddingRight:'20px'}}>
        
         <Grid item xs={12}>
+        <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange1} aria-label="basic tabs example">
+          <Tab icon={<PeopleAltIcon />} label="Personnel" {...a11yProps(0)} style={{paddingLeft:'20px',paddingRight:'20px'}} />
+          <Tab icon={<AssignmentIndIcon />} label="BPA Rate Card" {...a11yProps(1)} style={{paddingLeft:'20px',paddingRight:'20px'}} />
+          <Tab icon={<MonetizationOnIcon />} label="BPA Ceiling Tracker" {...a11yProps(2)} style={{paddingLeft:'20px',paddingRight:'20px'}} />
+          <Tab icon={<DescriptionIcon />} label="LCAT Description" {...a11yProps(3)}  style={{paddingLeft:'20px',paddingRight:'20px'}}/>
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+     
         <MaterialTable style={{boxShadow:0}}
         components={{
           Container: props => <Paper {...props} elevation={0}/>
@@ -198,25 +232,46 @@ function App() {
         icons={tableIcons}
        
         
-        title="BPA -Geography Support Services _GS-35F-0648Y"
+        title={
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-standard-label">Project</InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={project}
+            onChange={handleChange}
+            label="Project"
+            style={{marginBottom:'20px',fontWeight:'bold'}}
+          >
+           
+            <MenuItem style={{padding:'10px'}} value={10}>BPA -Geography Support Services _GS-35F-0648Y</MenuItem>
+            <MenuItem style={{padding:'10px'}} value={20}>BPA -Geography Support Services _GS-35F-0648Y</MenuItem>
+            <MenuItem style={{padding:'10px'}} value={30}>BPA -Geography Support Services _GS-35F-0648Y</MenuItem>
+          </Select>
+        </FormControl>
+        }
       columns={columns}
       data={data}
-
+/*
       detailPanel={rowData => {
         return (
           <div
           style={{
             fontSize: 100,
             textAlign: 'center',
-            color: 'white',
-            backgroundColor: '#43A047',
           }}
         >
-          {rowData.name}
+          <Grid container spacing={2} style={{paddingTop:'20px',paddingRight:'20px'}}>
+       
+       <Grid item xs={12}>
+         <b>Resource:</b> {rowData.resource}
+         </Grid>
+         </Grid>
+          
         </div>
         )
       }}
-
+*/
           editable={{
             onRowAdd: newData =>
               new Promise((resolve, reject) => {
@@ -251,13 +306,26 @@ function App() {
           }}
           options={{
             exportButton: true,
+           
             headerStyle: {
-              
+            
               background: '#A9E3EA',
               color: '#000000'
             }
           }}
         />
+
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        Item Two
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        Item Three
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        Item Three
+      </TabPanel>
+    </Box>
         </Grid>
         </Grid>
          
