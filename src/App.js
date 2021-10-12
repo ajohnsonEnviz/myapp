@@ -195,12 +195,12 @@ function App() {
 
   }
   async function getPList(){
-    console.log("Test");
-   const allPItems = await API.graphql({ query: queries.listPersonnel});
+   // console.log("Test");
+  // const allPItems = await API.graphql({ query: queries.listPersonnel});
  //  const models = await DataStore.query(Personnel,1);
-setData(allPItems.data.listPersonnel.items);
+//setData(allPItems.data.listPersonnel.items);
 
-console.log(allPItems.data.listPersonnel.items);
+//console.log(allPItems.data.listPersonnel.items);
 
   }
 
@@ -310,7 +310,7 @@ console.log(allPItems.data.listPersonnel.items);
                 setTimeout(() => {
                   
                   setData([...data, newData]);
-                  createPItem(newData);
+                 // createPItem(newData);
                   resolve();
                 }, 1000)
               }),
