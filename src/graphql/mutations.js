@@ -1,61 +1,73 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createPersonnelList = /* GraphQL */ `
-  mutation CreatePersonnelList(
-    $input: CreatePersonnelListInput!
-    $condition: ModelpersonnelListConditionInput
+export const createPersonnel = /* GraphQL */ `
+  mutation CreatePersonnel(
+    $input: CreatePersonnelInput!
+    $condition: ModelPersonnelConditionInput
   ) {
-    createPersonnelList(input: $input, condition: $condition) {
+    createPersonnel(input: $input, condition: $condition) {
       id
       resource
       callOrder
       lcat
       rate
       campin
-      approved
       transfer
+      approved
       exitDate
+      birthCity
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
   }
 `;
-export const updatePersonnelList = /* GraphQL */ `
-  mutation UpdatePersonnelList(
-    $input: UpdatePersonnelListInput!
-    $condition: ModelpersonnelListConditionInput
+export const updatePersonnel = /* GraphQL */ `
+  mutation UpdatePersonnel(
+    $input: UpdatePersonnelInput!
+    $condition: ModelPersonnelConditionInput
   ) {
-    updatePersonnelList(input: $input, condition: $condition) {
+    updatePersonnel(input: $input, condition: $condition) {
       id
       resource
       callOrder
       lcat
       rate
       campin
-      approved
       transfer
+      approved
       exitDate
+      birthCity
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
   }
 `;
-export const deletePersonnelList = /* GraphQL */ `
-  mutation DeletePersonnelList(
-    $input: DeletePersonnelListInput!
-    $condition: ModelpersonnelListConditionInput
+export const deletePersonnel = /* GraphQL */ `
+  mutation DeletePersonnel(
+    $input: DeletePersonnelInput!
+    $condition: ModelPersonnelConditionInput
   ) {
-    deletePersonnelList(input: $input, condition: $condition) {
+    deletePersonnel(input: $input, condition: $condition) {
       id
       resource
       callOrder
       lcat
       rate
       campin
-      approved
       transfer
+      approved
       exitDate
+      birthCity
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

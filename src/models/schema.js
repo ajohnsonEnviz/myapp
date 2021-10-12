@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "personnelList": {
-            "name": "personnelList",
+        "Personnel": {
+            "name": "Personnel",
             "fields": {
                 "id": {
                     "name": "id",
@@ -14,39 +14,32 @@ export const schema = {
                     "name": "resource",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "callOrder": {
                     "name": "callOrder",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
                 "lcat": {
                     "name": "lcat",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
                 "rate": {
                     "name": "rate",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
                 "campin": {
                     "name": "campin",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "approved": {
-                    "name": "approved",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -59,8 +52,22 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "approved": {
+                    "name": "approved",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "exitDate": {
                     "name": "exitDate",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "birthCity": {
+                    "name": "birthCity",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -84,7 +91,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "personnelLists",
+            "pluralName": "Personnel",
             "attributes": [
                 {
                     "type": "model",
@@ -102,6 +109,16 @@ export const schema = {
                                     "delete",
                                     "read"
                                 ]
+                            },
+                            {
+                                "allow": "private",
+                                "provider": "iam",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
                             }
                         ]
                     }
@@ -111,5 +128,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "bf6ce2c66d2314b213244a594a494d9c"
+    "version": "2634e5c99a67d76a92723de30685d3a2"
 };

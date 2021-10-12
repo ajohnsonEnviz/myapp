@@ -63,9 +63,11 @@ import Select from '@mui/material/Select';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import * as queries from './graphql/queries';
+import { DataStore } from '@aws-amplify/datastore';
+import {Personnel} from './models';
+import Predictions, { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
 
 Amplify.configure(awsExports);
-
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -180,23 +182,32 @@ function App() {
     setValue(newValue);
   };
 
-  async function createPItem(){
+  async function createPItem(dataRow){
   
     const todoDetails = {
-      resource: 'Zerya Betül'
+      id:1,
+      resource: 'Anthony Johnson'
     };
-    const newTodo = await API.graphql({ query: mutations.createPersonnelList, variables: {input: todoDetails}});
+
+    console.log(dataRow);
+    const newTodo = await API.graphql({ query: mutations.createPersonnel, variables: {input: dataRow}});
 
 
   }
   async function getPList(){
-    const allPItems = await API.graphql({ query: queries.getPersonnelList });
-console.log(allPItems); // result: { "data": { "listTodos": { "items": [/* ..... */] } } }
+    console.log("Test");
+   const allPItems = await API.graphql({ query: queries.listPersonnel});
+ //  const models = await DataStore.query(Personnel,1);
+setData(allPItems.data.listPersonnel.items);
+
+console.log(allPItems.data.listPersonnel.items);
 
   }
 
   useEffect(()=>{
+   // createPItem();
     getPList();
+
   });
   
 
@@ -299,7 +310,7 @@ console.log(allPItems); // result: { "data": { "listTodos": { "items": [/* .....
                 setTimeout(() => {
                   
                   setData([...data, newData]);
-                  createPItem();
+                  createPItem(newData);
                   resolve();
                 }, 1000)
               }),

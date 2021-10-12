@@ -1,12 +1,13 @@
-type personnelList @model @auth(rules: [{allow: private}]) {
+type Personnel @model @auth(rules: [{allow: private}, {allow: private, provider: iam}]) {
   id: ID!
-  resource: String!
-  callOrder: String
-  lcat: String
-  rate: String
-  campin: String
-  approved: String
-  transfer: String
-  exitDate: String
+  resource: String
+  callOrder: Int
+  lcat:Int 
+  rate:Int
+  campin:String
+  transfer:String
+  approved:String 
+  exitDate: String 
+  birthCity:String
 }
  

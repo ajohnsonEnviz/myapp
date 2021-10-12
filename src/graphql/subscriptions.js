@@ -1,52 +1,64 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreatePersonnelList = /* GraphQL */ `
-  subscription OnCreatePersonnelList {
-    onCreatePersonnelList {
+export const onCreatePersonnel = /* GraphQL */ `
+  subscription OnCreatePersonnel {
+    onCreatePersonnel {
       id
       resource
       callOrder
       lcat
       rate
       campin
-      approved
       transfer
+      approved
       exitDate
+      birthCity
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdatePersonnelList = /* GraphQL */ `
-  subscription OnUpdatePersonnelList {
-    onUpdatePersonnelList {
+export const onUpdatePersonnel = /* GraphQL */ `
+  subscription OnUpdatePersonnel {
+    onUpdatePersonnel {
       id
       resource
       callOrder
       lcat
       rate
       campin
-      approved
       transfer
+      approved
       exitDate
+      birthCity
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeletePersonnelList = /* GraphQL */ `
-  subscription OnDeletePersonnelList {
-    onDeletePersonnelList {
+export const onDeletePersonnel = /* GraphQL */ `
+  subscription OnDeletePersonnel {
+    onDeletePersonnel {
       id
       resource
       callOrder
       lcat
       rate
       campin
-      approved
       transfer
+      approved
       exitDate
+      birthCity
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

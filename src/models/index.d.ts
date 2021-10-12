@@ -4,22 +4,23 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-type personnelListMetaData = {
+type PersonnelMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class personnelList {
+export declare class Personnel {
   readonly id: string;
-  readonly resource: string;
-  readonly callOrder?: string;
-  readonly lcat?: string;
-  readonly rate?: string;
+  readonly resource?: string;
+  readonly callOrder?: number;
+  readonly lcat?: number;
+  readonly rate?: number;
   readonly campin?: string;
-  readonly approved?: string;
   readonly transfer?: string;
+  readonly approved?: string;
   readonly exitDate?: string;
+  readonly birthCity?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<personnelList, personnelListMetaData>);
-  static copyOf(source: personnelList, mutator: (draft: MutableModel<personnelList, personnelListMetaData>) => MutableModel<personnelList, personnelListMetaData> | void): personnelList;
+  constructor(init: ModelInit<Personnel, PersonnelMetaData>);
+  static copyOf(source: Personnel, mutator: (draft: MutableModel<Personnel, PersonnelMetaData>) => MutableModel<Personnel, PersonnelMetaData> | void): Personnel;
 }
